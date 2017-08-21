@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <title>Session Words</title>
+    </head>
+    <body>
+    <div class="container">
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <h3>All the registered users:</h3>
+        <ul>
+        {% for user in allUsers %}
+            <li>{{user.username}} - {{user.first_name}} {{user.last_name}}</li>
+        {% endfor %}
+        </ul>
+
+        <h1>Add a new word</h1>
+        <form action="/add_word" method="POST">
+            {% csrf_token %}
+            <input type="text" name="word"><br><br>
+            <input type="radio" name="color" value="red"> Red<br>
+            <input type="radio" name="color" value="green"> Green<br>
+            <input type="radio" name="color" value="blue"> Blue<br><br>
+            <input type="checkbox" name="size" value="18pt"> show in BIG fonts!
+            <br><br>
+            <input type="submit">
+        </form>
+        <hr>
+        <a href="/clear">Clear Words</a>
+        <br><br><br>
+        {% for word in request.session.words %}
+            <p style="color:{{word.color}}; font-size:{{word.size}}">{{word.word}}</p>
+        {% endfor %}
+
+        <a href="/clear"></a>
+    </div>
+    </body>
+</html>

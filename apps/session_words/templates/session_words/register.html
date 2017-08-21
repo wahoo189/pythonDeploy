@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h3>Please register to gain access to all the features.</h3>
+
+    <form action="doRegister" method="post">
+        {% csrf_token %}
+        <div>
+            User Name: <input type="text" name="username" value="">
+        </div>
+        <div>
+            Password: <input type="password" name="password" value="">
+        </div>
+        <div>
+            Confirm Password: <input type="password" name="password_confirm" value="">
+        </div>
+        <div>
+            Email: <input type="text" name="email" value="">
+        </div>
+        <div>
+            First Name: <input type="text" name="first_name" value="">
+        </div>
+        <div>
+            Last Name: <input type="text" name="last_name" value="">
+        </div>
+        <input type="submit" value="Register">
+    </form>
+
+    <hr>
+
+    <form action="/login" method="post">
+        {% csrf_token %}
+        <div>
+            User Name : <input type="text" name="userName">
+        </div>
+        <div>
+            Password : <input type="password" name="password">
+        </div>
+        <input type="submit" value="Log In">
+    </form>
+</body>
+</html>
